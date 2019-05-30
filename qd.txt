@@ -1,0 +1,689 @@
+webstorm 
+less模块安装配置 前提：已安装node.js,node.js自带npm: npm install -g less;  file-setting-file watcher
+
+css需要掌握的：
+	自定义字体图标，+,~的含义，first-child 和first-of-type的区别，
+@media (min-width: 768px) and (max-width: 992px){
+    .wjs_news .nav-tabs > li > a{
+        margin: 30px 50px;
+    }
+}
+
+12:50 2018/9/11html4.0 css js css3 h5 es6
+Dribbble
+freecodecamp
+
+http://www.qdabc.cn/tag/%E9%9D%A2%E8%AF%95  面试前端ABC
+position:absolute 根据父盒子定位 如果一个div没有设置宽度，则其width会根据内容显示width
+position:relative 根据原先自己在的位置定位
+
+这个博客总结的非常好：https://www.cnblogs.com/zhuzhenwei918/p/7268898.html#4178116
+
+在一组方括号里使用^是，它表示"非"或"排除"的意思
+
+文字类属性，父元素的属性会继承到子元素上
+1.
+margin塌陷：父子结构上的margin-top,如果父元素上的margin-top>子元素上的margin-top,则子元素上的margin-top不显示。（触发bfc）
+margin合并：兄弟节点之间的margin-bottom和margin-top,只会显示其中一个大的margin,另一个被合并。（不用解决）
+如何触发一个盒子的bfc功能
+bfc:
+position:absulute
+float:left/right
+display:inline-block
+overflow:hidden
+2.
+浮动元素产生了浮动流，块级元素看不到它，产生了bfc的元素和文本类属性（inline)的元素以及文本元素都能看到浮动流
+清除浮动流：.wrapper:after{content:'' display:block clear:both}
+3.
+单行文本溢出盒子...
+white-space:nowrap 不许换行
+over_flow:hidden  溢出影藏
+text-over-flow:ellipsis  打点
+多行文本溢出盒子...目前没有特别的处理方法，只是用的width和line-height做限制
+4.
+背景图片处理时，若图片大小不够，则默认会平铺
+background-img:url(f.jpg)
+background-size:100px 100px
+background-repeat:no-repeat
+
+background-position:100px 100px或left top 或50% 50%（这个有点特殊，是中心距离50%，不是左顶点）
+
+网速不好，不能加载css时，依然能够访问网页
+text_indent:200px  使文字溢出盒子
+white-space:no-wrap 不允许文字换行
+over-flow:hidden 文字溢出隐藏
+
+第二种方法：把盒子的高度设为0，padding设置为图片高度，然后溢出隐藏
+height:0
+padding-top：width
+over_flow:hidden
+
+5.a标签   锚点，链接，电话，邮件，js
+
+游览器：shell 内核（渲染引擎16ms js引擎）
+google      webkit/blink
+Firefox     Gecko
+IE          trident
+safari      webkit
+Opera       presto
+
+6.原始值:拷贝的是内存（放在栈中）number,boolean,string,undefined,null；引用值：拷贝的是地址（放在堆中）array,object,function...
+7.两个数交换值 c=a a=b b=c
+a=a+b
+b=a-b
+a=a-b
+
+8.任何数据类型+字符串=字符串
+Infinity number   1/0
+NaN   not a number 0/0
+document.write(a++) 先执行语句，后++
+A 65 a 97
+undefined=undefined
+Inifinity=Inifinity
+NaN!=NaN
+undefined,null>0 false null,undefined<0 false null,undefined=0 false
+undefined NaN null '' false 0 这五个bool值都为false
+
+&&  a=1&&2  a=2  a=0&&1 a=0
+||  a=0||1  a=1  a=1||0 a=1
+
+window.prompt('input')
+i=100;
+for(;i--;){document.write(i)}1-100输出
+
+
+typeof null :object
+typeof array:object
+number(undefined) NaN
+number(null) 0
+Number(a)123aaa  NaN
+Number能把看起来不想数字的转化为NaN
+
+
+9.类型转换
+Number()尽可能的把能转换成数字的转化成数字true,false，123aaa转化不了的为NaN
+parseInt()只把能转换成数字的转化成数字“123” ，true/false 不行
+但对字符串有一定的截取功能，“123aaa”
+null==undefined  true
+typeof(undefined) undefined
+typeof null [] ->object  typeof 一共只能返回6个  String Boolean Number undefined null Function 5个原始值都能识别出来，就一个null,历史遗留问题，归到Object
+
+隐式类型转换 isNaN() 里面会先转换成Number，再看是否满足条件
+parseInt(132,8):132是8进制，要转化成10进制
+‘132’.toString(16):132是10进制，要转化成16进制
+
+10.定义函数的方式：3种
+function test(){}
+var test=function(){}  匿名函数 test.name=test
+var test=function abc(){}   test.name=abc
+定义函数时，实参和形参数量上不一定一一对应。实参放在arguments数组中，而形参的数量用函数名.length求出。arguments中元素出生时有几个，就有几个
+
+
+函数声明整体提升，变量声明 提升。如果变量未经声明，就赋值，则此变量为全局对象window所有,一切定义在全局上的变量也为window所有
+var obj={}
+var obj=new Object()
+var obj=Object.creat(对象的原型或null)
+11.预编译，作用域
+预编译执行函数时，会生成一个test.[[scope]]属性，只能系统访问，里面放的是作用域链
+
+
+12.闭包：累加器，做缓存，实现封装 属性私有化（对象，只有自己能访问。邓哥媳妇），模块化开发 防止污染全局变量；
+立即执行函数：执行一次就被销毁：(function(a,b,c){}(1,2,3))  立即执行函数：初始化工具，用完第一遍之后省的用第二遍，省预编。arguments.callee（）指向函数本身
+caller:函数身上自带的一个属性,相当于portotype，在那个函数里被调用，就指向哪个函数function f(){ demo()} function demo(){console.log(demo.caller)} 打印出的结果是f函数
+
+只有表达式后面能加（）如：test()，进行执行。而函数申明后面不能加（）如：function(){}() 这样就是错的。var test=function f(){}表达式后面加上（），test()，这个函数就放弃了他的名字。
+但凡能把一个function变成表达式的，function就自动放弃了他的名字
+
+13.当内部函数被保存到外部时，将会生成闭包，闭包会导致原有作用域链不释放，造成内存泄漏。
+for(var i=0;i<10;i++){
+  var arr=[];
+  arr[i]=function(){console.log(i+"")};
+  return arr;
+}
+for (var j=0;j<10;j++)
+   arr[j]()
+其结果会打印出10个10
+如何避免这种问题，只有唯一一种方式：用立即执行函数
+
+for(var i=0;i<10;i++){
+   var arr=[];
+   (function(j){
+       arr[j]=function(){
+       console.log(j+"")}
+ }(i))
+return arr
+}
+
+
+14.对象中的属性，可以增删该查 Mr.health='poor' delete Mr.health
+15.原始值是不可能有属性和方法的，但str.abc=1 不报错，为什么呢？因为经历了一个包装类。(boolean,String,number的原始值都可以加属性和方法，因为有包装类，但是null和undefined加属性和方法会报错)
+如：var test='abc';
+    test.length=2;
+    console.log(test.length)
+test是原始值，不可能有属性和方法，但这里的test.length做了如下操作：String(test).length=2 然后马上销毁delete String(test).length
+当再次访问test.length时，再String(test).length。所以，此时，test.length=undefined
+16.构造函数底层做了什么？
+function Person(age,sex){
+   this.age=age;
+   this.sex=sex;
+}
+在new一个对象时，其实发生了如下操作（new 对象时，有时候要分清到底访问的是this.foo,还是foo；函数内部有表达式时，分清表达式上是否有this）
+function Person(age,sex){
+  var this={};this=Object.create(Person.prototype)/__proto__:Person.prototype
+  this.age=age;
+  this.sex=sex;
+  return this;
+}
+注意，如果此时代码中要强制return 原始值，系统还是默认return this
+如果return 引用值，系统会return 该引用值
+
+
+
+17.原型，原型链
+Number.prototype.__proto__=Object.prototype
+任何一个对象都继承自Object.prototype
+在new一个对象时，内部发生了如下隐式操作，他会var this={constructor:function(){};__proto__:函数名.prototype;}
+:constructor指向构造函数本身；__proto__指向 该对象的原型
+对象身上没有constructor属性，只有原型才有constructor属性   
+
+18.js可计算范围，钱16位，后16位。
+
+call,apply   改变this指向,但传参列表不同  Test.call(obj,'age')；他们的用法也可以在子类构造函数完全覆盖父类的方法，此时可用call/apply。以后会讲到圣杯模式。
+
+继承模式
+var inhert=(function(target,origin){
+   function F(){};
+   return function(){
+          F.portotype=origin.prototype;
+          target.prototype=new F();
+          target.prototype.constructor=target;
+          target.portotype.uber=origin;
+
+}
+}())
+深拷贝
+ function deepClone(origin,target){
+            var target=target||{},
+                toStr=Object.prototype.toString,
+                arrStr="[object Array]"
+            for(var prop in origin){
+                if(origin.hasOwnProperty(prop)){
+                    if(origin[prop]!==null&&typeof(origin[prop])=='object'){
+                       if (toStr.call(origin[prop])==arrStr){
+                           target[prop]=[]
+                       }else{
+                           target[prop]={}
+                       }
+                       deepClone(origin[prop],target[prop]);
+                    }else{
+                        target[prop]=origin[prop]
+                    }
+                }
+            }
+         }
+        obj={
+            "name":'xioa',
+            "card":[1,2,3,"card1"],
+            "son":{
+                "name":"sonname"
+            }
+        }
+        obj1=deepClone(obj)
+深度拷贝和浅度拷贝
+原始值拷贝时，拷贝原始值发生改变，拷贝后的值不会随之改变。但是如果拷贝引用值时，原始值发生改变，拷贝的值就会跟着改变。深拷贝就是，拷贝完之后，和你一模一样，但是不是同一个地址。
+重写typeof属性不满足需求，写type函数
+ function type(target){
+            var template={
+                "[object Array]":"array",
+                "[object Object]":"object",
+                "[object Number]":"number-object",
+                "[object String]":"string-object",
+                "[object Boolean]":"boolean-object"
+            }
+            if(target===null){
+                return null;
+            }
+            if(typeof(target)=="object"){
+                var str=Object.prototype.toString.call(target);
+                return template(str); 
+            }else{
+                return typeof target;
+            }
+        }
+数组去重 注意此时当value值为0的情况
+  array.prototype.unique=function(){
+              var temp={},
+                  arr=[],
+                  len=this.length;
+              for(var i = 0; i < len; i++){
+                  if(!temp[this[i]]){
+                      temp[this[i]] = "abc";
+                      arr.push(this[i]);
+                  }
+              }
+              return arr;
+          }
+var obj={}只有obj.__proto__,而构造函数的只有f.prototype。他们的constructor都是原型上的，如：f.prototype.constructor
+
+两个小知识点：
+deng={smoke:function(){console.log('smoking') return this;},drink:function(){console.log('drf.ining')  return this;}}   deng.smoke().drink().smoke()
+实现一个对象的连续调用，return this;
+
+容易出错这个：
+obj={"name":xiaoming,"age":14}
+for (var proto in obj ){console.log(obj.proto)}这里会全部返回undefined,用obj[proto]就行，底层原理到底是什么？
+用obj.proto相当于访问的是obj上的proto属性，obj["proto"]，但是obj上没有proto属性,所以会全部是undefined
+
+对象.hasOwnProperty()判断对象上的属性是不是他自己的，还是原型链上的，因为for in 遍历，会遍历到他原型链上的属性。但系统原型链上的属性不能打印Object.prtotype（注意：只有构造函数才有prototype属性，而对象上只有__proto__属性）
+in 原型链上的属性在对象中，也返回true
+A instanceof B A是不是B函数构造出来的(更标准应该是A的原型链上有没有B的原型)
+
+判断变量是数组还是对象：因为typeof []||{} 都是object,如何区分？
+[].construstor  Array
+{}.constructor  Object
+[] instanceof Array  true
+{} instanceof Array  false
+Object.prototype.toString.call([]) "[Object Array]"
+Object.prototype.toString.call({}) "[Object Object]"  为什么Object.toString.call({}) 不行？
+
+
+function F(){}()会报错   相当于一个立即执行函数，但是只有表达式后才能加（）表示执行,函数后加（）会报错
+但是 function F()()(1,2,3)不会报错  因为（1，2，3）相当于一个表达式，也不执行，也不报错
+
+{}=={} false 引用值比的是地址
+
+### 预编译过程中，this指向window；没有谁调用他，走预编译环节，this是指向window的
+### 在全局作用域中，this指向window
+### 谁调用这个方法，this就指向谁
+
+
+
+es3.0 es5.0 es6.0
+数组常用方法：改变原数组push,pop,shift（从前面减少）,unshift(从前面增加),sort,reverse,splice从第几位开始，切几个数据，在切口处添加数字
+不改变原数组：concat,join 数组里每个连接成字符串，按传的参数连（不传按，连接）-->split（字符串转化成数组） toString slice 从该位截取，截取到该位
+重写原型链上的push方法，定义自己想要的push
+Array.prototype.push=function(){
+    for(var i=0;i<arguments.length;i++){
+         this[this.length]=i;
+    return this.length;
+}
+}
+系统自带的排序和实际不和需求sort
+当返回值为正，前面的数放在前面
+          负  后面
+arr=[1,2,3,4]
+arr.sort(function(a,b){
+  return a-b;升序
+})
+//给一个有序的数组，乱序
+arr.sort(function(a,b){
+   return Math.random()-0.5;
+})
+
+！！！类数组
+属性要为索引（数字）属性，必须要有length属性，最好加上push
+如：obj={
+  "0":"a",
+  "1":"b",
+  "length":3,
+  "push":Array.prototype.push,
+  "splice":Array.prototype.splice
+}然后其在console.log时就真的像一个数组了。
+
+要知道这个类数组的内部是如何实现的？
+Array.prototype.push=function(target){
+   this[this.length]=target;
+   this.length++;
+}
+
+
+var test=1;则test在window上，这种情况下，delete window.test 为false;一旦经历了var的操作，所得出的属性，window,这种属性叫做不可配置属性，不可配置属性delete不掉
+
+
+es5:严格模式,变量声明前必须申明；局部this必须被赋值（赋什么就是什么，否则是undefined）;拒绝重复属性和参数
+arguments.callee(),with(){}，test.caller()在es5中不能用with(obj){}可以改变作用域，把作用域放到最顶端，但是这样会使得效率很低
+
+dom 
+div=document.getElementsByTagName('div')[0];
+getElementById:在IE8以下，他不区分大小写，而且他也返回匹配name属性的元素
+getElementsByClassName:IE8及IE8以下的游览器不能用
+getElementsByName():只有部分name标签可生效（表单，img,iframe）
+.querySelector()，.querySelectorAll():css选择器  IE7和IE7以下的版本中没有。选出来的元素不是实时的。
+遍历节点数：
+parentNode childNodes:子节点数门（节点的类型：元素节点1，属性节点2，文本节点3，注释节点8，document 9 DocumentFragment 11） firstChild lastChild nextSibiling previousSibiling
+
+遍历元素节点数：(IE9 及以下不兼容，除children以外)
+parentElement children childElementCount===node.children.length firstElementChild lastElementChild firstElementSibling previousElementSibling
+节点的4个属性：nodeName nodeValue nodeType attributes 节点的一个方法Node.hasChildNodes()  hasChildNodes()
+
+div.style.width='100px';
+div.onClick=function(){this.style.backgroundColor="green"}
+
+
+document的原型链
+Document--->HTMLDocument.portotype--->Document.prototype
+Element-->HTMLElement-->HTMLHeadElement,HTMLBodyElement
+
+dom操作得一些增 删 插 替换：
+document.createElement()
+document.createTextNode()
+document.createComment()
+doaument.createDocumentFragment()
+
+parent.removeChild()这个只是剪切出来
+child.remove()这个是真正的remove
+
+parentNode.appendChild()剪切操作
+parentNode.insertBefore(a,b)
+
+parent.replaceChild(new,origin)
+
+Eelment的一些属性：如innerHTML() innnerText()(火狐不兼容)/textContent()(老版本的IE不兼容)
+
+查看元素的尺寸dom.offsetWidth/dom.offsetHeight
+查看元素的位置dom.offsetLeft/dom.offsetTop   这个元素距离她有定位的父级的距离
+返回最近有定位的父级：dom.offsetParent
+
+滚动条滚动 window上有3个方法：scroll(x,y),scrollTo(x,y)   scrollBy(x,y):在原有数据基础上做滚动距离累加
+
+
+脚本化css
+div.style.width:只能获取行间样式的属性，如果不是行间样式的属性，则获取不到。
+
+事件处理模型：
+事件冒泡 ：结构上（非视觉上）存在父子嵌套关系，会存在事件冒泡功能，即同一事件，自子元素冒泡向父元素（自底向上）
+事件捕获：div.addEventListener("click",function(){},true)  自顶向下   div.setCapture() div.releaseCapture(只有IE能用)
+同一元素，绑定两个事件,先捕获，后冒泡
+有些事件，没有冒泡功能:focus,blur,change,submit,reset,select
+
+取消冒泡e.stopPropagation()  e.cancleBubble()
+取消默认事件--表单提交，a标签跳转，右键菜单等 ：
+  return false;
+  e.preventDefault()
+  e.returnValue=false;
+
+利用事件冒泡和事件源对象 进行事件委托event.target /event.srcElement 
+
+onmouseover=onmouseenter+onmouseleave
+contextmenu
+click事件只能监听左键，只能用mousedown和mouseup来判断鼠标键 e.button=0/2
+
+移动端 touchstart touchmove touchend
+键盘事件 keydown>keypress>keyup 
+keydown：能检测所有的按键 keypress:只能监测到字符类按键 String.fromCharCode( e.charCode())
+
+input事件 onchange:鼠标聚焦和失去焦点后值是否发生变化  onfocus  onblur
+scroll事件 load事件：window.onload=function（）{}他会等待页面全部加载完成后才开始执行，效率很低  IE就script上没有load事件 script.readyState="loading" "complated/loaded" onreadystatechange监听状态吗是否发生改变
+
+JSON.parse()  string->JSON
+JSON.stringfy() Json->string
+
+domTree+cssTree=randerTree
+reflow重排
+repaint重绘
+
+异步加载defer="defer" 只有IE能用，也可以将代码写到内部。但要等dom文档全部解析完才会被执行。
+async ="async" 不能把js写到script里，下载完就执行
+readyState=loading  
+readyState=interactive dom解析完
+DomContentLoaded事件  只能绑定在addEventListener
+readyState=completed  dom加载完
+
+而load事件要等dom加载完才能执行
+
+
+正则表达式：reg=/abc/igm
+reg.test(str)
+str.match(reg)
+/^a/以a开头
+/【^a】/非a
+\w 查找单个字符，除换行和行结束符   \W查找非单词字符
+\d 查找数字  \D查找非数字字符
+\s 查找空白字符 \S 查找非空白字符
+\b 查找匹配单词边界 \B 查找匹配非单词边界
+. 非\r \n
+ 
+  能匹配多，就不匹配少 在后面加？，就尽可能匹配少
+量词 n+{1,}           
+n*{0，}
+n? {0,1}
+n{X}
+n{x,y}n{4,}
+$ 以什么结尾
+reg.test(str) ture/false
+reg.exec(str)  lastIndex
+反向引用 reg=/(\w)\1(\w)\2/g
+
+str.match()
+str.search() 返回不是-1 都是匹配成功
+str.split(reg) reg=/(\w)/ 和reg=/\w/有很大区别
+str.replace(a,b) 把str里面的a,替换成b,但因为不是正则表达式，所以，不会全局匹配
+var reg=/(\w)\1(\w)\2/g;
+str=aabb;
+str.replace(reg,"$2$2$1$1"); 把str里面形如aabb的替换成bbaa;
+或str.replace(reg,function($,$1,$2)){
+   return $2+$2+$1+$1;
+};
+
+
+正向预查（断言）reg=/a(?=d)/g;
+
+正则表达式题目练习
+
+1000000
+reg=/?=(\B)((\d{3})+$)/g
+str.replace(reg,".")
+
+水平居中：
+行内元素：text-align:center;
+块级元素：margin:auto;
+
+垂直居中：
+1.基于绝对定位：
+main{
+ position:absolute;
+ top:50%;
+ left:50%;
+ transform:translate(-50%,-50%);
+}
+//让父级里面的元素居中
+父级{
+ position:flex;
+}
+字迹{
+ margin:auto;
+}
+或是父级{
+position:flex;
+align-items:center;
+justify-content:center;
+}
+
+
+
+
+enctype   是设置表单的MIME编码
+默认为application/x-www-form-urlencoded  不能用于文件上传
+图片文件上传时，要设置为 multipart/from-data
+
+<input type='file' name='avatar'>
+PHP中，表单post提交，获取图片信息时，用$avatar=$_FILES['image']
+post上传的图片时：
+<?php
+function upload () {
+  if (!isset($_FILES['avatar'])) {
+    $GLOBALS['message'] = '别玩我了';
+    // 客户端提交的表单内容中根本没有文件域
+    return;
+  }
+
+  $avatar = $_FILES['avatar'];
+  // $avatar => array(5) {
+  //   ["name"]=>
+  //   string(11) "icon-02.png"
+  //   ["type"]=>
+  //   string(9) "image/png"
+  //   ["tmp_name"]=>
+  //   string(27) "C:\Windows\Temp\php1138.tmp"
+  //   ["error"]=>
+  //   int(0)
+  //   ["size"]=>
+  //   int(4398)
+  // }
+  echo $avatar['error'];
+  if ($avatar['error'] !== UPLOAD_ERR_OK) {
+    // 服务端没有接收到上传的文件
+    $GLOBALS['message'] = '上传失败';
+    return;
+  }
+
+  // 接收到了文件
+  // 将文件从临时目录移动到网站范围之内
+  $source = $avatar['tmp_name']; // 源文件在哪
+  // => 'C:\Windows\Temp\php1138.tmp'
+  $target = './uploads/' . $avatar['name']; // 目标放在哪
+  // => './uploads/icon-02.png'
+  // 移动的目标路径中文件夹一定是一个已经存在的目录
+  $moved = move_uploaded_file($source, $target);
+
+  if (!$moved) {
+    $GLOBALS['message'] = '上传失败';
+    return;
+  }
+
+  // 移动成功（上传整个过程OK）
+
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // 接收文件 使用一个 叫做 $_FILES 超全局成员
+  // var_dump($_FILES);
+  upload();
+}
+
+?>
+
+ajax的好处：
+1.请求局部数据，网速不好的情况下也能快速访问
+2.seo搜索引擎  搜索不到（目前百度搜索不到，但谷歌已经能够）
+
+以前同步时，服务端做相关操作后，header返回到页面
+ajax异步时，直接返回数据或是否执行成功
+
+服务端一定要指定返回类型 json
+事件委托 即给他的父元素加一个事件就可以：为防止注册事件过多
+$('tbody').on('click','.btn-delete',function(){
+console.log(this)
+1.拿到需要删除的id
+var id=$(this).parent().parent().data('id')
+2.发送一个ajax请求，告诉服务端删除哪一条数据
+$.get('/caooment-delete.php',{id:id},function(res){
+ if(!res) return;
+ $(this).parent().parent().remove();//这里会涉及闭包的问题，所以要提前参数话   这里还会有一个问题，删除完当前页面后，当前页面为全部空白，所以应该重新加载当前页面数据
+})
+3.根据服务端返回的删除是否成功，决定是否一处界面上的这个数据
+重新加载当前页面的数据loadPageData()
+})
+
+
+
+页面加载时，鼠标呈现加载状态cursor:wait
+
+
+分页组件不能重新渲染导致的问题：导致页码减少时，实际前端页码没有减少
+第一次回掉时没有初始化分页组件（放到一个函数里面）
+第二次调用时，不能从新渲染页面，所以要destroy
+
+
+关于自定义无法修改样式的组件的方法  css
+<style>
+.radio1+i{
+ font-style:normal;
+}
+.radio1+i::after{
+ content:'没选中';
+}
+.radio1:checked+i::after{
+ content:'选中';
+}
+</style>
+<input type='radio' class='radio1'>
+<i></i>
+
++表示 选择元素对应后面相邻一个符合条件的元素
+~表示                    所有
+ul>li  避免行间元素有空格 可以 ul font-size:0
+
+
+异步文件上传：ajax图片上传
+当文件选择状态发生变化时，会出发change事件
+$('#avatar').on('change',function(){
+ //console.dir(this);
+ 判断是否选中了文件
+ //this.files.length==0或者$(this).prop('files')
+ if(files.length==0) return;
+ var files=files[0];
+//fromData是HTML5中新增的一个成员，专门用于ajax操作 用于在客户端与服务端之间二进制数据传递
+ var data=new FormData();
+ data.append('avatar',file);
+
+ var xhr=new XMLHttpRequest();
+ xhr.open('POST',/upload.php);
+ xhr.send(data);借助于fromdata传输数据
+ 
+ xhr.onload=function(){
+  console.log(this.responseText);
+}
+})
+服务端如何些  自己想
+substr(str,5)截取5个
+
+str.substr(1,2)截取第一个到第二个 str.substr(1)截取前1个
+
+html中的不可编辑属性：
+1.给input加readonly  优点：可以直接传递到后台 缺点 适用范围小 checkbox radio就不行
+2.给input加disabled  优点：使用范围广 缺点：表单无法传递到后台，除非用js做处理
+3.pointer-event:none 会有事件捕获和冒泡
+
+
+
+box-sizing:content-box|border-box
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
