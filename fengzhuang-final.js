@@ -441,3 +441,73 @@ function clone(object){
 		F.prototype=object
 		return new F;
 }
+//###数组去重的一种简单方法封装
+function dedupe(array){
+    return Array.from(new Set(array));
+    // 或者return [...new Set(array)]
+}
+
+// ###节点深度遍历的三种方法
+// 1 2 .递归
+function deepTravelsall(parentNode,nodeList=[]){
+    if(parentNode==null) return;
+    nodeList.push(parentNode);
+    let children=parentNode.children;
+    for(let i=0;i<=children.length-1;i++){
+        deepTravelsall(children[i],nodeList);
+    }
+    return nodeList;
+}
+
+function deepTravelsall(parentNode){
+    let nodeList=[];
+    if(parentNode==null) return;
+    nodeList.push(parentNode);
+    let children=parentNode.children;
+    for(let i=0;i<=children.length-1;i++){
+        nodeList=nodeList.concat(deepTravelsall(i))
+    }
+    return nodeList;
+}
+// 3 非递归深度遍历
+// node = [] stack = [parent]
+// node = [parent] stack = [child3,child2,child1]
+// node = [parent, child1] stack = [child3,child2,child1-2,child1-1]
+// node = [parent, child1-1] stack = [child3,child2,child1-2]
+function deepTravelsall(parentNode){
+    let strack=[];
+    let nodeList=[];
+    if(parentNode==null) return;
+    strack.push(parentNode);
+    while(strack.length){
+        let item=strack.pop();
+        let children=item.children;
+        nodeList.push(item)
+        for(let i=children.length-1;i>=0;i--){
+            strack.push(children[i])
+        }
+    }
+    return nodeList;
+}
+
+// 广度优先遍历
+// nodes = [] stack = [parent]
+// nodes = [parent] stack = [child1,child2,child3]
+// nodes = [parent, child1] stack = [child2,child3,child1-1,child1-2]
+// nodes = [parent,child1,child2]
+function widthTravelsall(parentNode){
+    let nodeList=[];
+    let strack=[];
+    if(parentNode==null) return;
+    strack.push(parentNode);
+    while(strack.length){
+        let item=strack.shift();
+        let children=item.children;
+        nodeList.push(item);
+        for(let i=0;i<children.length-1;i++){
+            strack.push(children[i])
+        }
+    }
+    return nodeList;
+}
+

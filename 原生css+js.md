@@ -40,6 +40,7 @@ over-flow:hidden(不为visible)
 	<a href="#btn"></a>
     <input type="button" id="btn">
 ----------------------
+http://es6.ruanyifeng.com/#docs/set-map
 ##js
 ###reg
 ###游览器内核
@@ -70,6 +71,14 @@ parseInt(),只能把能转换成数字的转化成数字true/false不行
 parseInt(123aaa) 123
 parseInt(132,8) 132是8进制，要转化成10进制
 ‘132’.toString(16) 132是10进制，要转化成16进制
+[^a]非a
+^a 以a开头
+能匹配多，就不匹配少，在后面？，就尽可能匹配少
+n* {0,}
+n+ {1,}
+n? {0,1}
+n{x}
+n{x,y}
 
 ###函数预编译
 ###作用域链
@@ -174,3 +183,11 @@ e.stopPropagation	e.cancleBubble()
 return false;
 e.preventDefault()
 e.returnValue=false
+###防抖和节流
+###数组去重，提供得一个新方法
+	function dedupe(array){
+		return Array.from(new Set(array));
+	}
+###深度优先遍历和广度优先遍历
+###图的深度优先遍历和图的广度优先遍历
+###深度优先拷贝函数&&广度优先拷贝函数
