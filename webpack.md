@@ -62,7 +62,12 @@ npm run dev
                 template:path.resolve(__dirname, 'src/index.html'),//模板路径
                 filename:'index.html'//自动生成的HTML文件的名称
             })
-        ]
+        ]，
+resolve: {
+    alias: { // 修改 Vue 被导入时候的包的路径，这样可以直接import Vue from "vue"而不用import Vue from "/vue/dist/vue.js"
+      // "vue$": "vue/dist/vue.js"
+    }
+  }
     }
 ```
 ##--hot 实现游览器无刷新跟新
@@ -144,3 +149,36 @@ import Vue from 'vue'
 // 5. 使用 import login from './login.vue' 导入这个组件
 // 6. 创建 vm 的实例 var vm = new Vue({ el: '#app', render: c => c(login) })
 // 7. 在页面中创建一个 id 为 app 的 div 元素，作为我们 vm 实例要控制的区域；
+
+##在vue组件页面中，集成vue-router路由模块
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+import login from './components/account/login.vue'
+var router = new VueRouter({
+
+  routes: [
+
+    { path: '/', redirect: '/login' },
+
+    { path: '/login', component: login },
+
+    { path: '/register', component: register }
+
+  ]
+
+});
+var vm = new Vue({
+
+  el: '#app',
+
+  // render: c => { return c(App) }
+
+  render(c) {
+
+    return c(App);
+
+  },
+
+  router // 将路由对象，挂载到 Vue 实例上
+
+});
