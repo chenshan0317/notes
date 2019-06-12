@@ -1,3 +1,5 @@
+插件 koroFileHeader可以在构造函数头尾插入注释
+插件 vetur插件，可使得.vue文件高亮显示和提示功能
 ###作用
 解决各个包之间的复杂的依赖关系
 ##安装
@@ -182,3 +184,7 @@ var vm = new Vue({
   router // 将路由对象，挂载到 Vue 实例上
 
 });
+
+###组件style标签中的lang属性和scoped属性
+在style标签中写的style属性，会让所有元素有这个属性，而不是只针对这个模板有这个属性，可以<style scoped></style>
+在style标签中只能写普通的css样式，如果要写scss样式的，设置lang属性：<style lang="scss"></style>
