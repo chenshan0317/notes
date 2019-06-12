@@ -42,3 +42,6 @@ git init
 git add .
 git commit -m 'commit'
 git remote add origin master
+git push origin master
+
+vscode中默认集成git工具
